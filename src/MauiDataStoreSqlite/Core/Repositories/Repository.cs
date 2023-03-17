@@ -25,7 +25,11 @@ public abstract class Repository
 
            var result =  _connection.CreateTablesAsync<Group, Entities.Task>().Result;
             _logger.LogInformation($"Create tables {nameof(Entities.Task)}");
-
+            var groups = _connection.Table<Group>();
+            if (groups.CountAsync().Result == default)
+            {
+                var resultInsert = _connection.InsertAllAsync(GroupSeed.Groups).Result;
+            }
         }
         catch (Exception ex)
         {

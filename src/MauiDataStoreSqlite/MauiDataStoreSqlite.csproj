@@ -65,6 +65,7 @@
       <None Remove="Core\Interfaces\" />
       <None Remove="Core\Services\" />
       <None Remove="Core\Constants\" />
+      <None Remove="Pages\Tasks\" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Core\" />
@@ -72,6 +73,13 @@
       <Folder Include="Core\Interfaces\" />
       <Folder Include="Core\Services\" />
       <Folder Include="Core\Constants\" />
+      <Folder Include="Pages\Tasks\" />
     </ItemGroup>
  
+    <ItemGroup>
+      <RazorComponent Update="Pages\Task\Create.razor">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </RazorComponent>
+    </ItemGroup>
 </Project>

@@ -7,5 +7,6 @@
         ValueTask<IEnumerable<Entities.Task>> GetAllTaskAsync(CancellationToken cancellationToken);
         ValueTask<Entities.Task> GetByIdTaskAsync(string id, CancellationToken cancellationToken);
         ValueTask<Entities.Task> UpdateTaskAsync(Entities.Task task, CancellationToken cancellationToken);
+        ValueTask<IEnumerable<Core.Entities.Task>> GetAllTaskByGroupIdAsync(string idGroup, CancellationToken cancellationToken);
     }
 }

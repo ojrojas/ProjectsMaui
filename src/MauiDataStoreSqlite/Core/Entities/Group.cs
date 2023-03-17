@@ -1,7 +1,9 @@
 ﻿namespace MauiDataStoreSqlite.Core.Entities;
 
+[Table("Group")]
 public class Group: BaseEntity
 {
-	public string Name { get; set; }
+    [MaxLength(250), Unique]
+    public string Name { get; set; }
 }
 

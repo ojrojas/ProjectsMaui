@@ -12,7 +12,9 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
             });
 
-        var path = Path.Combine(FileSystem.AppDataDirectory, "mauisqliteexample.db3");
+        var path = Path.Combine(
+            Environment.GetFolderPath(
+                Environment.SpecialFolder.MyDocuments), "mauisqliteexample.db3");
 
         builder.Services.AddMauiBlazorWebView();
 

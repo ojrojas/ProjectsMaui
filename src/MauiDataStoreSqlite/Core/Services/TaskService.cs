@@ -35,5 +35,11 @@ public class TaskService : ITaskService
     {
         return await _repository.GetByIdTaskAsync(id, cancellationToken);
     }
+
+    public async ValueTask<IEnumerable<Core.Entities.Task>> GetAllTaskByGroupIdAsync(string idGroup, CancellationToken cancellationToken)
+    {
+        var all =await GetAllTaskAsync(cancellationToken);
+        return all.Where(task => task.GroupId == Guid.Parse(idGroup));
+    }
 }
 
