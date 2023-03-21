@@ -1,0 +1,65 @@
+﻿@page "/CreateWork/{CategoryId}"
+@inject ICategoryService _categoryService;
+@inject IWorkService _workService;
+@inject IToastService _toastService;
+@inject NavigationManager _navigation;
+
+<h1>Create Work at @Category.Name</h1>
+
+<EditForm Model="@_work" OnSubmit="OnSubmitCreate">
+    <div class="mb-3">
+        <label for="Name" class="form-label">Name</label>
+        <InputText class="form-control" id="Name" @bind-Value="_work.Name" />
+    </div>
+    <div class="mb-3">
+        <label for="IsToday">Is Today?</label>
+        <InputCheckbox class="form-check-input" id="IsToday" @bind-Value="_work.IsToday" />
+    </div>
+    <div class="mb-3">
+        <label for="IsCompleted">Is Completed</label>
+        <InputCheckbox class="form-check-input" id="IsCompleted" @bind-Value="_work.IsCompleted" />
+    </div>
+    <div class="mb-3">
+        <label for="StartDate">Start Date Work</label>
+        <InputDate class="form-control" id="StartDate" @bind-Value="_work.StartDate" />
+    </div>
+    <div class="mb-3">
+        <label>Optional</label>
+        <hr />
+        <label for="EndDate">End Date Work</label>
+        <InputDate class="form-control" id="EndDate" @bind-Value="_work.EndDate" />
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public string CategoryId { get; set; }
+    private Category Category = new();
+    private Work _work = new() { StartDate = DateTime.Now };
+    protected override async Task OnInitializedAsync()
+    {
+        Category = await _categoryService.GetCategoryByIdAsync(Guid.Parse(CategoryId), default);
+    }
+
+    private async Task OnSubmitCreate()
+    {
+        _work.CategoryId = Guid.Parse(CategoryId);
+        var result = await _workService.CreateWorkAsync(_work, default);
+        if (result is not null)
+        {
+            _toastService.ShowSuccess("Work created successful!");
+            SelectNavigation();
+        }
+        else
+        {
+            _toastService.ShowWarning("Do not created work.");
+        }
+    }
+
+    private void SelectNavigation()
+    {
+        if (Category.Name.Equals("MyToday")) _navigation.NavigateTo("/");
+        else _navigation.NavigateTo($"/Categories/CategorySelected/{CategoryId}");
+    }
+}

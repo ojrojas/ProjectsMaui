@@ -1,0 +1,42 @@
+﻿@inject ICategoryService _categoryService;
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">MyTodo!</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            @foreach (var category in _categories)
+            {
+                var path = category.Page.Equals("/") ? category.Page : category.Page + ($"/{category.Id}");
+                <NavLink class="nav-link" href="@path" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> @category.Name
+                </NavLink>
+            }
+        </div>
+
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+    private IEnumerable<Category> _categories = new List<Category>();
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _categories = await _categoryService.GetAllCategoryAsync(default);
+
+    }
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

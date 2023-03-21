@@ -1,0 +1,14 @@
+﻿global using System.Reflection;
+global using System.Text.Json;
+global using Ardalis.Specification;
+global using Ardalis.Specification.EntityFrameworkCore;
+global using MauiDataSqlite.Core.Entities;
+global using MauiDataSqlite.Core.Interfaces;
+global using MauiDataSqlite.Core.Services;
+global using MauiDataSqlite.Core.Specifications;
+global using MauiDataSqlite.Infraestructure.Data;
+global using MauiDataSqlite.Infraestructure.Repositories;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.Logging;
+global using Blazored.Toast;
+global using Blazored.Toast.Services;
